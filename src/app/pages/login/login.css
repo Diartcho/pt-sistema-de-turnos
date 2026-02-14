@@ -1,0 +1,122 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FONDO COMPLETO */
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #0f5c8a, #1ca6d3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 120px;
+  padding: 60px;
+  font-family: Arial, sans-serif;
+}
+
+/* SECCIÓN INFORMACIÓN */
+.info-section {
+  color: white;
+  max-width: 500px;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  opacity: 0.95;
+}
+
+
+.logo {
+  width: 35vw;        /* tamaño relativo a la pantalla */
+  max-width: 450px;   /* límite máximo */
+  min-width: 250px;   /* límite mínimo */
+  margin-bottom: 30px;
+}
+
+
+.info-section h1 {
+  font-size: 38px; /* más grande */
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.info-section p {
+  font-size: 18px;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+/* TARJETA LOGIN */
+.login-card {
+  background: white;
+  padding: 45px;
+  border-radius: 14px;
+  width: 360px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 22px;
+  color: #0f5c8a;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #0f5c8a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0c4a6e;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+  .login-page {
+    flex-direction: column;
+    gap: 50px;
+    text-align: center;
+  }
+
+  .logo {
+    width: 220px;
+  }
+
+  .info-section h1 {
+    font-size: 28px;
+  }
+
+  .info-section p {
+    font-size: 16px;
+  }
+
+  .login-card {
+    width: 90%;
+    max-width: 380px;
+  }
+}

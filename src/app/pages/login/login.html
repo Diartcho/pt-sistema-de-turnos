@@ -1,0 +1,53 @@
+<div class="login-wrapper">
+
+  <div class="login-card">
+
+    <img src="SUPERGIROS.png" alt="SuperGiros" class="logo">
+
+    <h1>Bienvenido a SuperGiros</h1>
+    <p class="info">
+      Plataforma interna para la gestión segura de giros, consultas y operaciones financieras.
+    </p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <!-- EMAIL -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
+
+      <!-- PASSWORD -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+        >
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePassword()"
+        >
+          <mat-icon>
+            {{ hide ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="login-button"
+        type="submit"
+      >
+        Iniciar Sesión
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
