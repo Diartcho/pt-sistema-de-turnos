@@ -1,53 +1,75 @@
-<div class="login-wrapper">
-
+<div class="page">
   <div class="login-card">
+    <!-- LADO IZQUIERDO -->
+    <div class="left">
+      <img class="brand" src="/Logo-SUPER-GIROS.png" alt="SuperGiros" />
 
-    <img src="SUPERGIROS.png" alt="SuperGiros" class="logo">
+      <h1>Plataforma Interna SuperGiros</h1>
 
-    <h1>Bienvenido a SuperGiros</h1>
-    <p class="info">
-      Plataforma interna para la gestión segura de giros, consultas y operaciones financieras.
-    </p>
+      <p>
+        Este portal está diseñado para el acceso seguro del personal autorizado,
+        con el fin de apoyar los procesos internos de operación.
+      </p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <p>
+        Podrás consultar información, gestionar servicios y realizar validaciones
+        relacionadas con la operación de SuperGiros.
+      </p>
 
-      <!-- EMAIL -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Correo electrónico</mat-label>
-        <input matInput type="email" formControlName="email">
-      </mat-form-field>
+      <p class="strong">
+        Ingresa con tus credenciales corporativas para continuar.
+      </p>
+    </div>
 
-      <!-- PASSWORD -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Contraseña</mat-label>
+    <!-- LADO DERECHO -->
+    <div class="right">
+      <h2>Iniciar Sesión</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label>Correo electrónico*</label>
         <input
-          matInput
-          [type]="hide ? 'password' : 'text'"
-          formControlName="password"
-        >
-        <button
-          mat-icon-button
-          matSuffix
-          type="button"
-          (click)="togglePassword()"
-        >
-          <mat-icon>
-            {{ hide ? 'visibility_off' : 'visibility' }}
-          </mat-icon>
+          type="email"
+          formControlName="email"
+          placeholder="correo@empresa.com"
+        />
+
+        <label>Contraseña*</label>
+        <div class="password">
+          <input
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            placeholder="******"
+          />
+          <span class="toggle" (click)="hidePassword = !hidePassword">
+            {{ hidePassword ? '👁️' : '🙈' }}
+          </span>
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid">
+          Ingresar
         </button>
-      </mat-form-field>
 
-      <button
-        mat-raised-button
-        color="primary"
-        class="login-button"
-        type="submit"
-      >
-        Iniciar Sesión
-      </button>
+        <button
+          type="button"
+          class="forgot-link"
+          (click)="toggleForgot()"
+        >
+          ¿Se te olvidó la contraseña?
+        </button>
+      </form>
 
-    </form>
-
+      <!-- BLOQUE OLVIDÉ CONTRASEÑA (TEXTO COMPLETO COMO TE LO DEJÉ ANTES) -->
+      <div class="forgot-box" *ngIf="showForgot">
+        <p class="forgot-title"><b>Recuperación de cuenta</b></p>
+        <p>
+          Para recuperar tu cuenta comunícate con el área de soporte o el
+          administrador del sistema.
+        </p>
+        <p class="forgot-hint">
+          También puedes solicitar el restablecimiento por los canales internos
+          autorizados.
+        </p>
+      </div>
+    </div>
   </div>
-
 </div>

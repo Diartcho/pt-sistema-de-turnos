@@ -1,0 +1,77 @@
+<div class="assign-page">
+  <mat-card class="assign-card">
+    <mat-card-title class="assign-title">Asignar turno</mat-card-title>
+
+    <mat-card-subtitle class="assign-subtitle">
+      <b>Empleado:</b> {{ employee?.name }}
+    </mat-card-subtitle>
+
+    <div class="form-grid" [formGroup]="form">
+      <!-- Fecha (datepicker) -->
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Fecha *</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="f['date'].touched && f['date'].invalid">La fecha es obligatoria</mat-error>
+      </mat-form-field>
+
+      <!-- Hora inicio (1 sola casilla) -->
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Hora inicio *</mat-label>
+        <input
+          matInput
+          placeholder="Ej: 8:15 AM"
+          formControlName="startTime"
+          [matAutocomplete]="autoStart"
+        />
+        <mat-autocomplete #autoStart="matAutocomplete">
+          <mat-option *ngFor="let t of timeOptions" [value]="t">{{ t }}</mat-option>
+        </mat-autocomplete>
+        <mat-hint>Minutos: 00, 15, 30, 45</mat-hint>
+      </mat-form-field>
+
+      <!-- Hora fin (1 sola casilla) -->
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Hora fin *</mat-label>
+        <input
+          matInput
+          placeholder="Ej: 10:30 AM"
+          formControlName="endTime"
+          [matAutocomplete]="autoEnd"
+        />
+        <mat-autocomplete #autoEnd="matAutocomplete">
+          <mat-option *ngFor="let t of timeOptions" [value]="t">{{ t }}</mat-option>
+        </mat-autocomplete>
+        <mat-hint>Minutos: 00, 15, 30, 45</mat-hint>
+      </mat-form-field>
+
+      <!-- Cargo -->
+      <mat-form-field appearance="outline" class="field full">
+        <mat-label>Cargo *</mat-label>
+        <input matInput formControlName="cargo" placeholder="Ej: Cajero / Asesor" />
+        <mat-error *ngIf="f['cargo'].touched && f['cargo'].invalid">El cargo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <!-- Error hora (en la misma card) -->
+      <div class="time-error" *ngIf="timeError">
+        {{ timeError }}
+      </div>
+
+      <!-- Éxito -->
+      <div class="success" *ngIf="successMsg">
+        {{ successMsg }}
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-button type="button" (click)="cancel()">Cancelar</button>
+      <button mat-raised-button color="primary" type="button" (click)="save()"
+        [disabled]="employee?.status === 'Inactivo'">
+        Guardar
+      </button>
+    </div>
+  </mat-card>
+</div>
+
+

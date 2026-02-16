@@ -1,0 +1,52 @@
+<mat-card class="assign-card">
+  <mat-card-title class="assign-title">Asignar turno</mat-card-title>
+  <mat-card-subtitle class="assign-subtitle">
+    <b>Empleado:</b> {{ data.employeeName }}
+  </mat-card-subtitle>
+
+  <div class="grid" [formGroup]="form">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Fecha *</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="f['date'].touched && f['date'].invalid">La fecha es obligatoria</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Hora inicio *</mat-label>
+      <input matInput formControlName="startTime" placeholder="Ej: 8:15 AM" [matAutocomplete]="autoStart">
+      <mat-autocomplete #autoStart="matAutocomplete">
+        <mat-option *ngFor="let t of timeOptions" [value]="t">{{ t }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Hora fin *</mat-label>
+      <input matInput formControlName="endTime" placeholder="Ej: 10:30 AM" [matAutocomplete]="autoEnd">
+      <mat-autocomplete #autoEnd="matAutocomplete">
+        <mat-option *ngFor="let t of timeOptions" [value]="t">{{ t }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field full">
+      <mat-label>Cargo *</mat-label>
+      <input matInput formControlName="cargo" placeholder="Ej: Cajero / Asesor">
+      <mat-error *ngIf="f['cargo'].touched && f['cargo'].invalid">El cargo es obligatorio</mat-error>
+    </mat-form-field>
+
+    <div class="time-error" *ngIf="timeError">
+      {{ timeError }}
+    </div>
+
+    <div class="success" *ngIf="successMsg">
+      {{ successMsg }}
+    </div>
+  </div>
+
+  <div class="actions">
+    <button mat-button type="button" (click)="close()">Cancelar</button>
+    <button mat-raised-button color="primary" type="button" (click)="save()">Guardar</button>
+  </div>
+</mat-card>
+

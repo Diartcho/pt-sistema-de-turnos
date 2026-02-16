@@ -1,48 +1,51 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-// Angular Material
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']   // IMPORTANTE: styleUrls en plural
+  styleUrl: './login.css',
 })
 export class Login {
+  loginForm!: FormGroup;
 
-  hide = true;
+  hidePassword: boolean = true;
+  showForgot: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
-
-  loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(4)]]
-  });
-
-  togglePassword() {
-    this.hide = !this.hide;
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private auth: AuthService
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.router.navigate(['/dashboard']);
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    const { email, password } = this.loginForm.value;
+
+    const ok = this.auth.login(email, password);
+    if (ok) {
+      this.router.navigate(['/empleados']);
+    } else {
+      alert('Credenciales incorrectas');
     }
   }
-}
 
+  toggleForgot() {
+    this.showForgot = !this.showForgot;
+  }
+}
 

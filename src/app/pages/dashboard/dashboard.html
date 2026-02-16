@@ -1,1 +1,173 @@
-<p>dashboard works!</p>
+<div class="page">
+
+  <!-- LOGO ARRIBA DERECHA -->
+  <header class="top-header">
+    <img src="Logo-SUPER-GIROS.png" alt="SuperGiros" class="logo" />
+  </header>
+
+  <!-- CARD CONTENEDORA -->
+  <div class="dashboard-card">
+
+    <!-- TITULO CENTRADO DENTRO -->
+    <h2 class="card-title">Gestión de Empleados</h2>
+
+    <!-- FILTROS -->
+    <div class="filters-bar">
+      <input
+        type="text"
+        placeholder="Buscar empleado"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilters()"
+      />
+
+      <select [(ngModel)]="selectedCity" (change)="applyFilters()">
+        <option value="">Ciudad</option>
+        <option *ngFor="let c of cities" [value]="c">{{ c }}</option>
+      </select>
+
+      <select [(ngModel)]="selectedStatus" (change)="applyFilters()">
+        <option value="">Estado</option>
+        <option value="Activo">Activo</option>
+        <option value="Inactivo">Inactivo</option>
+      </select>
+
+      <select [(ngModel)]="sortOrder" (change)="applyFilters()">
+        <option value="AZ">A - Z</option>
+        <option value="ZA">Z - A</option>
+      </select>
+
+      <button mat-raised-button color="primary" (click)="clearFilters()">
+        Limpiar
+      </button>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading" *ngIf="loading">
+      Cargando empleados...
+    </div>
+
+    <!-- GRID -->
+    <div class="employees-grid" *ngIf="!loading">
+      <div class="employee-card" *ngFor="let e of visibleEmployees">
+
+        <div class="employee-header">
+          <div class="avatar">
+            <img
+              src="/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
+              alt="Perfil"
+            />
+          </div>
+
+          <div class="employee-title">
+            <div class="name">{{ e.name }}</div>
+            <div class="company">{{ e.companyName }}</div>
+          </div>
+        </div>
+
+        <div class="employee-body">
+          <div><b>Email:</b> {{ e.email }}</div>
+          <div><b>Tel:</b> {{ e.phone | cleanPhone }}</div>
+          <div><b>Ciudad:</b> {{ e.city }}</div>
+
+          <div class="status">
+            <span class="dot" [class.active]="e.status === 'Activo'" [class.inactive]="e.status === 'Inactivo'"></span>
+            {{ e.status === 'Activo' ? 'Empleado activo' : 'Empleado inactivo' }}
+          </div>
+
+          <!-- ✅ slide-toggle para activar/inactivar -->
+          <div class="status-toggle">
+            <mat-slide-toggle
+              [checked]="e.status === 'Activo'"
+              (change)="toggleEmployeeStatus(e, $event.checked)">
+              {{ e.status === 'Activo' ? 'Activo' : 'Inactivo' }}
+            </mat-slide-toggle>
+          </div>
+        </div>
+
+        <div class="employee-actions">
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="assignTurn(e)"
+            [disabled]="e.status !== 'Activo'">
+            Asignar turno
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGINATOR -->
+    <div class="paginator-wrap" *ngIf="!loading">
+      <mat-paginator
+        [length]="filteredEmployees.length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[8, 16, 24]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+
+    <!-- ✅ TABLA DE TURNOS (últimos 10) -->
+    <div class="turns-card" *ngIf="!loading">
+      <div class="turns-title">Turnos asignados (últimos 10)</div>
+
+      <div class="turns-table">
+        <div class="turns-head">
+          <div>Empleado</div>
+          <div>Fecha</div>
+          <div>Inicio</div>
+          <div>Fin</div>
+          <div>Cargo</div>
+          <div>Estado</div>
+          <div>Acción</div>
+        </div>
+
+        <div class="turns-row" *ngFor="let t of turnsLast10">
+          <div>{{ t.employeeName }}</div>
+
+          <!-- ✅ DD/MM/YYYY -->
+          <div>{{ formatDateDMY(t.dateISO) }}</div>
+
+          <!-- ✅ YA NO ES startHour/startMin/startMeridiem -->
+          <div>{{ t.startTime }}</div>
+          <div>{{ t.endTime }}</div>
+
+          <div>{{ t.cargo }}</div>
+
+          <div class="turn-status">
+            <span class="dot"
+              [class.active]="t.status === 'Activo'"
+              [class.inactive]="t.status === 'Eliminado'">
+            </span>
+            {{ t.status }}
+            <div class="reason" *ngIf="t.status === 'Eliminado' && t.deletedReason">
+              Motivo: {{ t.deletedReason }}
+            </div>
+          </div>
+
+          <div>
+            <button
+              mat-stroked-button
+              color="warn"
+              (click)="deleteTurn(t)"
+              [disabled]="t.status === 'Eliminado'">
+              Borrar
+            </button>
+          </div>
+        </div>
+
+        <div class="turns-empty" *ngIf="turnsLast10.length === 0">
+          Aún no hay turnos asignados.
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGOUT ABAJO -->
+    <div class="logout-wrap">
+      <button class="logout-btn" (click)="logout()">
+        Cerrar sesión
+      </button>
+    </div>
+
+  </div>
+</div>
+

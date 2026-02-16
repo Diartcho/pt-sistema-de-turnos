@@ -1,0 +1,373 @@
+/* =========================
+   BASE / FONDO
+========================= */
+.page {
+  min-height: 100vh;
+  padding: 28px 18px 40px;
+  background: linear-gradient(180deg, #0b6f93 0%, #1a8db6 45%, #23a1c8 100%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* LOGO */
+.top-header {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+}
+.logo {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,0.18));
+}
+
+/* =========================
+   CARD PRINCIPAL
+========================= */
+.dashboard-card {
+  width: min(1100px, 100%);
+  background: #eef6fb;
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  box-shadow: 0 18px 55px rgba(0,0,0,0.18);
+}
+
+.card-title {
+  text-align: center;
+  font-size: 24px;
+  margin: 0 0 16px;
+  color: #0a6cc7;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+/* =========================
+   BARRA DE FILTROS (MODERNA)
+========================= */
+.filters-bar {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr 0.8fr 0.7fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 14px;
+
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(10, 108, 199, 0.16);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+/* Inputs / Selects modernos */
+.filters-bar input,
+.filters-bar select {
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(10, 108, 199, 0.22);
+  background: #ffffff;
+  padding: 0 12px;
+  outline: none;
+  font-size: 14px;
+  color: #16324f;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  transition: 180ms ease;
+}
+
+/* Placeholder */
+.filters-bar input::placeholder {
+  color: rgba(22, 50, 79, 0.55);
+}
+
+/* Hover / Focus */
+.filters-bar input:hover,
+.filters-bar select:hover {
+  border-color: rgba(10, 108, 199, 0.35);
+  transform: translateY(-1px);
+}
+.filters-bar input:focus,
+.filters-bar select:focus {
+  border-color: rgba(10, 108, 199, 0.65);
+  box-shadow: 0 10px 20px rgba(10,108,199,0.18);
+}
+
+/* Botón limpiar (sin cambiar tu HTML, solo estilo) */
+.filters-bar button {
+  height: 42px;
+  border-radius: 999px !important;
+  font-weight: 700;
+  box-shadow: 0 10px 20px rgba(10,108,199,0.18);
+}
+
+/* Responsive filtros */
+@media (max-width: 900px) {
+  .filters-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+  .filters-bar button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+/* =========================
+   LOADING
+========================= */
+.loading {
+  text-align: center;
+  padding: 18px 0;
+  color: #0b4f6c;
+  font-weight: 700;
+}
+
+/* =========================
+   GRID EMPLEADOS
+========================= */
+.employees-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+@media (max-width: 1100px) {
+  .employees-grid {
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 840px) {
+  .employees-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .employees-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   CARD EMPLEADO
+========================= */
+.employee-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(10, 108, 199, 0.10);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.employee-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 30px rgba(0,0,0,0.16);
+}
+
+/* Header */
+.employee-header {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* AVATAR: centrado y circular */
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 30% 30%, #2db3e3 0%, #0b6f93 60%, #085a77 100%);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.85);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 999px;
+}
+
+/* Título empleado */
+.employee-title .name {
+  font-weight: 800;
+  color: #173452;
+  line-height: 1.1;
+  font-size: 15px;
+}
+.employee-title .company {
+  color: rgba(23, 52, 82, 0.70);
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Body */
+.employee-body {
+  color: #173452;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.employee-body b {
+  color: #0b4f6c;
+}
+
+/* Estado */
+.status {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: #eef6fb;
+  border: 1px solid rgba(10,108,199,0.10);
+  font-weight: 800;
+  color: #173452;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.04);
+}
+.dot.active {
+  background: #21c36b;
+}
+.dot.inactive {
+  background: #e64b4b;
+}
+
+/* Slide Toggle (solo separador suave, no cambia funcionalidad) */
+.status-toggle {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Acciones */
+.employee-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.employee-actions button {
+  border-radius: 999px !important;
+  font-weight: 800;
+}
+
+/* =========================
+   PAGINATOR
+========================= */
+.paginator-wrap {
+  margin-top: 14px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(10,108,199,0.10);
+  background: rgba(255,255,255,0.8);
+}
+
+/* =========================
+   CARD TURNOS
+========================= */
+.turns-card {
+  margin-top: 16px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px;
+  border: 1px solid rgba(10, 108, 199, 0.10);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+}
+
+.turns-title {
+  font-weight: 900;
+  color: #0a6cc7;
+  margin-bottom: 10px;
+}
+
+/* Tabla simple tipo grid */
+.turns-table {
+  display: block;
+}
+
+.turns-head,
+.turns-row {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr 0.7fr 0.7fr 1fr 1fr 0.7fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.turns-head {
+  padding: 10px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(23, 52, 82, 0.75);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.turns-row {
+  padding: 10px 10px;
+  font-size: 13px;
+  color: #173452;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.turn-status .reason {
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(23,52,82,0.7);
+}
+
+.turns-empty {
+  padding: 14px 10px;
+  color: rgba(23, 52, 82, 0.7);
+  font-weight: 700;
+}
+
+/* Responsive tabla */
+@media (max-width: 980px) {
+  .turns-head,
+  .turns-row {
+    grid-template-columns: 1.2fr 0.9fr 0.7fr 0.7fr 1fr 0.9fr;
+  }
+  .turns-head > :last-child,
+  .turns-row > :last-child {
+    display: none;
+  }
+}
+
+/* =========================
+   LOGOUT
+========================= */
+.logout-wrap {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+.logout-btn {
+  border: 2px solid rgba(10, 108, 199, 0.55);
+  color: #0a6cc7;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 160ms ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 26px rgba(0,0,0,0.12);
+}
